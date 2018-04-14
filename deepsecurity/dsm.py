@@ -10,13 +10,15 @@ import core
 import computers
 import environments
 import policies
+import tenants
+import tenanttemplates
 import translation
 
 class Manager(core.CoreApi):
   def __init__(self,
       hostname='app.deepsecurity.trendmicro.com',
       port='4119',
-      tenant=None,
+      tenantname=None,
       username=None,
       password=None,
       prefix="",
@@ -25,7 +27,7 @@ class Manager(core.CoreApi):
     core.CoreApi.__init__(self)
     self._hostname = None
     self._port = port
-    self._tenant = None
+    self._tenantname = None
     self._username = None
     self._password = None
     self._prefix = prefix
@@ -35,8 +37,8 @@ class Manager(core.CoreApi):
     self._get_local_config_file()
 
     # allow for explicit override
-    if tenant:
-      self._tenant = unicode(tenant, "utf-8") if not type(tenant) == type(unicode("")) else tenant
+    if tenantname:
+      self._tenantname = unicode(tenantname, "utf-8") if not type(tenantname) == type(unicode("")) else tenantname
     if username:
       self._username = unicode(username, "utf-8") if not type(username) == type(unicode("")) else username
     if password:
@@ -48,6 +50,9 @@ class Manager(core.CoreApi):
     self.rules = policies.Rules(manager=self)
     self.ip_lists = policies.IPLists(manager=self)
     self.cloud_accounts = environments.CloudAccounts(manager=self)
+    self.tenants = tenants.Tenants(manager=self)
+    self.tenant = tenants.Tenant(manager=self)
+    self.tenanttemplate = tenanttemplates.TenantTemplate(manager=self)
 
   def __del__(self):
     """
@@ -89,11 +94,11 @@ class Manager(core.CoreApi):
     self._set_endpoints()
 
   @property
-  def tenant(self): return self._tenant
+  def tenantname(self): return self._tenantname
 
-  @tenant.setter
-  def tenant(self, value):
-    self._tenant = value
+  @tenantname.setter
+  def tenantname(self, value):
+    self._tenantname = value
     self._reset_session()
 
   @property
@@ -160,7 +165,7 @@ class Manager(core.CoreApi):
       credentials = {
         'username': None,
         'password': None,
-        'tenant': None,
+        'tenantname': None,
       }
       try:
         credential_line_pattern = re.compile(r'(?P<key>\w+) = (?P<val>[^\n]+)')
@@ -193,9 +198,9 @@ class Manager(core.CoreApi):
       'username': self.username,
       'password': self.password,
       }
-    if self.tenant:
+    if self.tenantname:
       soap_call['call'] = 'authenticateTenant'
-      soap_call['data']['tenantName'] = self.tenant
+      soap_call['data']['tenantName'] = self.tenantname
     else:
       soap_call['call'] = 'authenticate'
 
@@ -211,9 +216,9 @@ class Manager(core.CoreApi):
             'password': self.password,
           }
     }
-    if self.tenant:
+    if self.tenantname:
       rest_call['call'] = 'authentication/login'
-      rest_call['data']['dsCredentials']['tenantName'] = self.tenant
+      rest_call['data']['dsCredentials']['tenantName'] = self.tenantname
     else:
       rest_call['call'] = 'authentication/login/primary'
 
