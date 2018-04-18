@@ -48,7 +48,7 @@ class Tenant(core.CoreObject):
           'activationCodes': [ 'AM' ]
         },
         'tenantElement': {
-          'tenantID': 11,
+          #'tenantID': 11,
           'name': name,
           'language': 'en',
           'country': 'us',
@@ -87,6 +87,30 @@ class Tenant(core.CoreObject):
       rest_call['call'] = 'tenants/name/'+urllib.quote(tenant_name)
     else:
       rest_call['call'] = 'tenants'
+
+    response = self.manager._request(rest_call, auth_required=False)
+
+    return response
+  
+  def update(self, tenant_name=None, modules_visible=None):
+    """
+    Update a Tenant by name
+    """
+
+    rest_call = self.manager._get_request_format(api=self.manager.API_TYPE_REST)
+
+    rest_call['query'] = {}
+    rest_call['query']['sID'] = self.manager._sessions[self.manager.API_TYPE_REST]
+    rest_call['call'] = 'tenants/name/'+urllib.quote(tenant_name)
+
+    rest_call['data'] = {
+      'updateTenantRequest': {
+        'tenantElement': {
+          'modulesVisible': modules_visible
+        },
+        'sessionId': self.manager._sessions[self.manager.API_TYPE_REST]
+      }
+    }
 
     response = self.manager._request(rest_call, auth_required=False)
 
