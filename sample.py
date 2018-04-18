@@ -19,7 +19,7 @@ print 'add a tenant'
 print '--- - ------'
 print ''
 '''
-mgr.tenant.add(admin_acct='testadmin', admin_pw='Ou812345!', admin_eml='test@mytest.com', name='tenanttest333')
+mgr.tenant.add(admin_acct='testadmin', admin_pw='Ou812345!', admin_eml='test@mytest.com', name='tenanttest44')
 #print json.dumps(mgr.tenants.get(),indent=2,sort_keys=True)
 '''
 print ''
@@ -33,9 +33,7 @@ print '--- - ------ --------'
 mgr.tenanttemplate.add(tenant_id=11)
 print ''
 print json.dumps(mgr.tenanttemplate.get(),indent=2,sort_keys=True)
-'''
-mgr.tenant.update('tenanttest333',['AM','FW'])
-'''
+mgr.tenant.update('tenanttest33333',['AM','FW'])
 mgr.policies.get()
 mgr.rules.get()
 mgr.ip_lists.get()

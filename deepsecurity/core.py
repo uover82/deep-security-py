@@ -221,8 +221,13 @@ class CoreApi(object):
     elif request.has_key('data') and request['data']:
       # POST
       url_request = urllib2.Request(url, data=json.dumps(request['data']), headers=headers)
-      request_type = 'POST'
-      self.log("Making a REST POST request with headers {}".format(headers), level='debug')
+      if request['call'].startswith('tenants/name'):
+        setattr(url_request, 'get_method', lambda: 'PUT') # make this request use the PUT HTTP verb
+        request_type = 'PUT'
+        self.log("Making a REST PUT request with headers {}".format(headers), level='debug')
+      else:
+        request_type = 'POST'
+        self.log("Making a REST POST request with headers {}".format(headers), level='debug')
       self.log("    and data {}".format(request['data']), level='debug')
     else:
       # GET

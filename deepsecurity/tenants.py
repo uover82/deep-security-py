@@ -51,9 +51,9 @@ class Tenant(core.CoreObject):
           #'tenantID': 11,
           'name': name,
           'language': 'en',
-          'country': 'us',
-          'timeZone': 'us/pacific',
-          'modulesVisible': [ 'AM' ]
+          'country': 'US',
+          'timeZone': 'US/Pacific',
+          'modulesVisible': ['AM']
         },
         'sessionId': self.manager._sessions[self.manager.API_TYPE_REST]
       }
