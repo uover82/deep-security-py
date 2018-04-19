@@ -5,7 +5,7 @@ class TestStringMethods(unittest.TestCase):
 
     def setUp(self):
         global mgr
-        mgr = deepsecurity.dsm.Manager(hostname="dsm.cleardata.com", port="443", username="john.harrison@cleardata.com", password="QFD!C*#bHEr5", tenantname="primary", ignore_ssl_validation=True)
+        mgr = deepsecurity.dsm.Manager(hostname="dsm.cleardata.com", port="443", username="john.harrison@cleardata.com", password="JHpassword1!", tenantname="primary", ignore_ssl_validation=True)
         mgr.sign_in()
 
     '''
@@ -14,6 +14,11 @@ class TestStringMethods(unittest.TestCase):
         response = mgr.tenant.add(admin_acct='testadmin', admin_pw='Ou812345!', admin_eml='test@mytest.com', name='tenanttest22')
         self.assertEqual(response['status'], 200)
     '''
+
+    def test_update_tenant(self):
+        global mgr, response
+        response = mgr.tenant.update(tenant_name='mytenanttest',modules_visible=['AM','FW'])
+        self.assertEqual(response['status'], 200)
 
     def test_get_tenant(self):
         global mgr, response

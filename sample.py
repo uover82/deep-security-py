@@ -3,7 +3,7 @@ import deepsecurity, json
 # 1. Create a manager object and authenticate. Usage via the API mirrors the
 #    web administration console for permissions. This defaults to Deep Security
 #    as a Service
-mgr = deepsecurity.dsm.Manager(hostname="dsm.cleardata.com", port="443", username="<username>", password="<password>", tenantname="primary", ignore_ssl_validation=True)
+mgr = deepsecurity.dsm.Manager(hostname="dsm.cleardata.com", port="443", username="john.harrison@cleardata.com", password="JHpassword1!", tenantname="primary", ignore_ssl_validation=True)
 #mgr = deepsecurity.dsm.Manager(username=user, password=pwd, tenantname=tenant_name)
 #    Create same object against your own Deep Security Manager with a self-signed SSL certificate
 #mgr = deepsecurity.dsm.Manager(hostname=hostname, username=user, password=pwd, ignore_ssl_validation=True)
@@ -13,27 +13,15 @@ mgr.sign_in()
 
 # 3. The Manager() object won't have any data populated yet but does have a number of properties
 #    all work in a similar manner
-'''
-print ''
-print 'add a tenant'
-print '--- - ------'
-print ''
-'''
-mgr.tenant.add(admin_acct='testadmin', admin_pw='Ou812345!', admin_eml='test@mytest.com', name='tenanttest44')
+#mgr.tenant.add(admin_acct='testadmin', admin_pw='Ou812345!', admin_eml='test@mytest.com', name='mytenanttest')
 #print json.dumps(mgr.tenants.get(),indent=2,sort_keys=True)
-'''
-print ''
-print json.dumps(mgr.tenant.get(tenant_id=11),indent=2,sort_keys=True)
-print ''
-#print mgr.tenant.get(tenant_name='00004269 - Chicagoland Smile Group - PHX3')
+#print json.dumps(mgr.tenant.get(tenant_id=11),indent=2,sort_keys=True)
+print json.dumps(mgr.tenant.get(tenant_name='mytenanttest'),indent=2,sort_keys=True)
 #print mgr.tenant.get(tenant_state='active', tenant_id=6, tenant_idop='eq')
-print ''
-print 'add a tenant template'
-print '--- - ------ --------'
-mgr.tenanttemplate.add(tenant_id=11)
-print ''
-print json.dumps(mgr.tenanttemplate.get(),indent=2,sort_keys=True)
-mgr.tenant.update('tenanttest33333',['AM','FW'])
+#mgr.tenanttemplate.add(tenant_id=11)
+#print json.dumps(mgr.tenanttemplate.get(),indent=2,sort_keys=True)
+#mgr.tenant.update(tenant_name='mytenanttest',modules_visible=['AM','FW'])
+'''
 mgr.policies.get()
 mgr.rules.get()
 mgr.ip_lists.get()

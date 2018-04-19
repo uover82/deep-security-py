@@ -48,7 +48,7 @@ class Tenant(core.CoreObject):
           'activationCodes': [ 'AM' ]
         },
         'tenantElement': {
-          #'tenantID': 11,
+          'tenantID': 11,
           'name': name,
           'language': 'en',
           'country': 'US',
