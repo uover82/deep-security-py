@@ -31,7 +31,7 @@ class Tenant(core.CoreObject):
     self.log = self.manager.log if self.manager else None
     if api_response: self._set_properties(api_response, log_func)
 
-  def add(self, admin_acct=None, admin_pw=None, admin_eml=None, name=None):
+  def add(self, admin_acct=None, admin_pw=None, admin_eml=None, name=None, modules_visible=['AM']):
     """
     Add a Tenant
     """
@@ -53,7 +53,7 @@ class Tenant(core.CoreObject):
           'language': 'en',
           'country': 'US',
           'timeZone': 'US/Pacific',
-          'modulesVisible': ['AM']
+          'modulesVisible': modules_visible
         },
         'sessionId': self.manager._sessions[self.manager.API_TYPE_REST]
       }

@@ -3,7 +3,7 @@ import deepsecurity, json
 # 1. Create a manager object and authenticate. Usage via the API mirrors the
 #    web administration console for permissions. This defaults to Deep Security
 #    as a Service
-mgr = deepsecurity.dsm.Manager(hostname="dsm.cleardata.com", port="443", username="john.harrison@cleardata.com", password="JHpassword1!", tenantname="primary", ignore_ssl_validation=True)
+mgr = deepsecurity.dsm.Manager(hostname="dsm.cleardata.com", port="443", username="<username>", password="<password>", tenantname="primary", ignore_ssl_validation=True)
 #mgr = deepsecurity.dsm.Manager(username=user, password=pwd, tenantname=tenant_name)
 #    Create same object against your own Deep Security Manager with a self-signed SSL certificate
 #mgr = deepsecurity.dsm.Manager(hostname=hostname, username=user, password=pwd, ignore_ssl_validation=True)
@@ -13,7 +13,7 @@ mgr.sign_in()
 
 # 3. The Manager() object won't have any data populated yet but does have a number of properties
 #    all work in a similar manner
-#mgr.tenant.add(admin_acct='testadmin', admin_pw='Ou812345!', admin_eml='test@mytest.com', name='mytenanttest')
+mgr.tenant.add(admin_acct='testadmin', admin_pw='Ou812345!', admin_eml='test@mytest.com', name='mytenanttest')
 #print json.dumps(mgr.tenants.get(),indent=2,sort_keys=True)
 #print json.dumps(mgr.tenant.get(tenant_id=11),indent=2,sort_keys=True)
 print json.dumps(mgr.tenant.get(tenant_name='mytenanttest'),indent=2,sort_keys=True)
